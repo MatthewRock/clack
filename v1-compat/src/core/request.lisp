@@ -183,7 +183,7 @@ on an original raw-body."
       ;; POST parameters
       (unless (slot-boundp req 'body-parameters)
         (setf (slot-value req 'body-parameters)
-              (parse (content-type req) (content-length req) (raw-body req)))
+              (parse (content-type req) (or (content-length req) 0) (raw-body req)))
         (file-position (raw-body req) 0)
         (rplacd (last env) (list :body-parameters (slot-value req 'body-parameters)))))
 
